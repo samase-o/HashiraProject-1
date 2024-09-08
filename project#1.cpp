@@ -6,9 +6,6 @@
 #include <iostream>
 #include <filesystem>
 #include <map>
-#ifdef _WIN32
-#include <windows.h>
-#endif
 
 namespace fs = std::filesystem;
 using namespace std;
@@ -33,16 +30,7 @@ void organize_files(const fs::path& dir_path) {
             }
         }
     }
-
     cout << "Files organized successfully!" << endl;
-
-#ifdef _WIN32
-    ShellExecute(NULL, "open", dir_path.string().c_str(), NULL, NULL, SW_SHOWDEFAULT);
-#elif __linux__
-    system(("xdg-open " + dir_path.string()).c_str());
-#else
-    cout << "Opening folder is not supported on this operating system." << endl;
-#endif
 }
 
 int main() {
